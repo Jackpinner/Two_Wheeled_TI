@@ -1,0 +1,88 @@
+#include "header.h"
+
+// float Vertical_Kp, Vertical_Kd;
+// float Velocity_Kp, Velocity_Ki;
+// int Turn_Kp,Turn_Kd;
+extern int Encoder_Left,Encoder_Right;
+extern int Robot_enabel;
+float pitch,roll,yaw;
+short gyrox,gyroy,gyroz;
+short	aacx,aacy,aacz;
+extern TIM_HandleTypeDef htim2,htim4;
+uint8_t stop;
+extern uint8_t Rx_Buffer[2];
+//闭环控制中间变量
+int Vertical_out,Velocity_out,Turn_out,Target_Speed,Target_turn,MOTO1,MOTO2;
+float Med_Angle=0;//平衡时角度值偏移量（机械中值）
+//参数
+float Vertical_Kp=-180,Vertical_Kd=-2;			//直立环 数量级（Kp：0~1000、Kd：0~10）
+float Velocity_Kp=-0.6,Velocity_Ki=-0.003;		//速度环 数量级（Kp：0~1）
+float Turn_Kp=-10,Turn_Kd=-0.6;			
+
+// 直立PID控制器
+// 输入：期望角度、真实角度、角速度
+int Vertical(float med, float angle, float gyro_Y)
+{
+    int temp;
+    temp = Vertical_Kp * (angle - med) + Vertical_Kd * gyro_Y;
+    return temp;
+}
+
+// 速度环PID控制器
+// 输入：期望速度、左编码器、右编码器
+int Velocity(int target, int encoder_L, int encoder_R)
+{
+    static int Err_LowOut_last,Encoder_S;
+    static float a = 0.7;
+    // 偏差值计算
+    int Err, Err_LowOut,temp;
+    Err = (encoder_L + encoder_R) - target;
+    // 低通滤波
+    Err_LowOut = (1 - a) * Err + a * Err_LowOut_last;
+    Err_LowOut_last = Err_LowOut;
+    //积分
+    Encoder_S+=Err_LowOut;
+    //限幅
+    Encoder_S=Encoder_S>20000?20000:(Encoder_S<(-20000)?(-20000):Encoder_S);
+    if(stop==1)
+    {
+        Encoder_S=0;
+        stop=1;
+    }
+    //速度环计算
+    temp=Velocity_Kp*Err_LowOut+Velocity_Ki*Encoder_S;
+    return temp;
+}
+int Turn(float gyro_Z,int Target_turn)
+{
+	int temp;
+	temp=Turn_Kp*Target_turn+Turn_Kd*gyro_Z;
+	return temp;
+}
+void Control(void)	//每隔10ms调用一次
+{
+	int PWM_out;
+	//1、读取编码器和陀螺仪的数据
+	Encoder_Left=Read_Speed(htim2);
+	Encoder_Right=-Read_Speed(htim4);
+	mpu_dmp_get_data(&pitch,&roll,&yaw);
+	MPU_Get_Gyroscope(&gyrox,&gyroy,&gyroz);
+	MPU_Get_Accelerometer(&aacx,&aacy,&aacz);
+	
+	//2、将数据传入PID控制器，计算输出结果，即左右电机转速值
+	Velocity_out=Velocity(Target_Speed,Encoder_Left,Encoder_Right);
+	Vertical_out=Vertical(Velocity_out+Med_Angle,roll,gyrox);
+	Turn_out=Turn(gyroz,Target_turn);
+	PWM_out=Vertical_out;
+	MOTO1=PWM_out-Turn_out;
+	MOTO2=PWM_out+Turn_out;
+	Limit(&MOTO1,&MOTO2);
+    if(Robot_enabel)
+    {
+        Load(MOTO1,MOTO2);
+    }
+	else
+    {
+        Load(0,0);
+    }
+}
