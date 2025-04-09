@@ -10,15 +10,18 @@ short gyrox,gyroy,gyroz;
 short	aacx,aacy,aacz;
 extern TIM_HandleTypeDef htim2,htim4;
 uint8_t stop;
-extern uint8_t Rx_Buffer[2];
+extern uint8_t rx_buffer[2];
+#define SPEED_Y 30 //俯仰(前后)最大设定速度
+#define SPEED_Z 150//偏航(左右)最大设定速度 
 //闭环控制中间变量
 int Vertical_out,Velocity_out,Turn_out,Target_Speed,Target_turn,MOTO1,MOTO2;
 float Med_Angle=0;//平衡时角度值偏移量（机械中值）
 //参数
 float Vertical_Kp=-180,Vertical_Kd=-2;			//直立环 数量级（Kp：0~1000、Kd：0~10）
-float Velocity_Kp=-0.6,Velocity_Ki=-0.003;		//速度环 数量级（Kp：0~1）
-float Turn_Kp=-10,Turn_Kd=-0.6;			
-
+float Velocity_Kp=0.6,Velocity_Ki=0.003;		//速度环 数量级（Kp：0~1）
+float Turn_Kp=10,Turn_Kd=0.6;			
+extern uint8_t Fore,Back,Left,Right;
+uint8_t stop;
 // 直立PID控制器
 // 输入：期望角度、真实角度、角速度
 int Vertical(float med, float angle, float gyro_Y)
@@ -69,6 +72,29 @@ void Control(void)	//每隔10ms调用一次
 	MPU_Get_Gyroscope(&gyrox,&gyroy,&gyroz);
 	MPU_Get_Accelerometer(&aacx,&aacy,&aacz);
 	
+	//遥控
+	if((Fore==0)&&(Back==0))Target_Speed=0;//未接受到前进后退指令-->速度清零，稳在原地
+	if(Fore==1)
+	{
+//		if(distance<50)
+//			Target_Speed--;
+//		else
+//			Target_Speed++;
+		Target_Speed++;
+		
+	}
+	if(Back==1){Target_Speed--;}//
+	Target_Speed=Target_Speed>SPEED_Y?SPEED_Y:(Target_Speed<-SPEED_Y?(-SPEED_Y):Target_Speed);//限幅
+	
+	/*左右*/
+	if((Left==0)&&(Right==0))Target_turn=0;
+	if(Left==1)Target_turn-=30;	//左转
+	if(Right==1)Target_turn+=30;	//右转
+	Target_turn=Target_turn>SPEED_Z?SPEED_Z:(Target_turn<-SPEED_Z?(-SPEED_Z):Target_turn);//限幅( (20*100) * 100   )
+	
+	/*转向约束*/
+	if((Left==0)&&(Right==0))Turn_Kd=0.6;//若无左右转向指令，则开启转向约束
+	else if((Left==1)||(Right==1))Turn_Kd=0;//若左右转向指令接收到，则去掉转向约束
 	//2、将数据传入PID控制器，计算输出结果，即左右电机转速值
 	Velocity_out=Velocity(Target_Speed,Encoder_Left,Encoder_Right);
 	Vertical_out=Vertical(Velocity_out+Med_Angle,roll,gyrox);
@@ -77,12 +103,6 @@ void Control(void)	//每隔10ms调用一次
 	MOTO1=PWM_out-Turn_out;
 	MOTO2=PWM_out+Turn_out;
 	Limit(&MOTO1,&MOTO2);
-    if(Robot_enabel)
-    {
-        Load(MOTO1,MOTO2);
-    }
-	else
-    {
-        Load(0,0);
-    }
+  Load(MOTO1,MOTO2);
+    
 }

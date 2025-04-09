@@ -3,18 +3,18 @@
         {
             "name": "Two_Wheeled_Robot",
             "includePath": [
-                "d:\\DeskTop\\RM_project\\Two_Wheeled_Robot\\Core\\Inc",
-                "d:\\DeskTop\\RM_project\\Two_Wheeled_Robot\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
-                "d:\\DeskTop\\RM_project\\Two_Wheeled_Robot\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
-                "d:\\DeskTop\\RM_project\\Two_Wheeled_Robot\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
-                "d:\\DeskTop\\RM_project\\Two_Wheeled_Robot\\Drivers\\CMSIS\\Include",
-                "d:\\DeskTop\\RM_project\\Two_Wheeled_Robot\\MDK-ARM\\ExHardware\\OLED",
-                "d:\\DeskTop\\RM_project\\Two_Wheeled_Robot\\MDK-ARM\\ExHardware\\MPU6050",
-                "d:\\DeskTop\\RM_project\\Two_Wheeled_Robot\\MDK-ARM\\ExHardware\\Motor",
-                "d:\\DeskTop\\RM_project\\Two_Wheeled_Robot\\MDK-ARM\\Middlewares",
-                "d:\\DeskTop\\RM_project\\Two_Wheeled_Robot\\MDK-ARM",
-                "d:\\DeskTop\\RM_project\\Two_Wheeled_Robot\\Core\\Src",
-                "d:\\DeskTop\\RM_project\\Two_Wheeled_Robot\\Drivers\\STM32F1xx_HAL_Driver\\Src"
+                "d:\\DeskTop\\TI\\Two_Wheeled_Robot\\Core\\Inc",
+                "d:\\DeskTop\\TI\\Two_Wheeled_Robot\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
+                "d:\\DeskTop\\TI\\Two_Wheeled_Robot\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
+                "d:\\DeskTop\\TI\\Two_Wheeled_Robot\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
+                "d:\\DeskTop\\TI\\Two_Wheeled_Robot\\Drivers\\CMSIS\\Include",
+                "d:\\DeskTop\\TI\\Two_Wheeled_Robot\\MDK-ARM\\ExHardware\\OLED",
+                "d:\\DeskTop\\TI\\Two_Wheeled_Robot\\MDK-ARM\\ExHardware\\MPU6050",
+                "d:\\DeskTop\\TI\\Two_Wheeled_Robot\\MDK-ARM\\ExHardware\\Motor",
+                "d:\\DeskTop\\TI\\Two_Wheeled_Robot\\MDK-ARM\\Middlewares",
+                "d:\\DeskTop\\TI\\Two_Wheeled_Robot\\MDK-ARM",
+                "d:\\DeskTop\\TI\\Two_Wheeled_Robot\\Core\\Src",
+                "d:\\DeskTop\\TI\\Two_Wheeled_Robot\\Drivers\\STM32F1xx_HAL_Driver\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

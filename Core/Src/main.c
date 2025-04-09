@@ -50,7 +50,7 @@ extern float roll;
 uint8_t Display_Buffer[20];
 uint32_t sys_tick = 0;
 int Encoder_Left, Encoder_Right = 0;
-extern uint8_t Rx_Buffer[2];
+uint8_t rx_buffer[2];
 int Robot_enabel = 0;
 extern TIM_HandleTypeDef htim1;
 /* USER CODE END PV */
@@ -63,17 +63,17 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void Bluetoot_Control()
-{
-  if( Rx_Buffer[0]== 0x11)
-  {
-      Robot_enabel = 1;
-  }
-	else if( Rx_Buffer[0]== 0x13)
-  {
-      Robot_enabel = 0;
-  }
-}
+//void Bluetoot_Control()
+//{
+//  if( Rx_Buffer[0]== 0x11)
+//  {
+//      Robot_enabel = 1;
+//  }
+//	else if( Rx_Buffer[0]== 0x13)
+//  {
+//      Robot_enabel = 0;
+//  }
+//}
 void Read(void)
 {
   if (uwTick - sys_tick < 10)
@@ -130,7 +130,7 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
   HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
   HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
-  HAL_UART_Receive_IT(&huart3, Rx_Buffer, 1);
+  HAL_UART_Receive_IT(&huart3, rx_buffer, 1);
 	Robot_enabel = 1;
    Load(0,0);
   /* USER CODE END 2 */

@@ -41,7 +41,11 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-uint8_t Rx_Buffer[2];
+//uint8_t Rx_Buffer[2];
+extern uint8_t rx_buffer[2];
+uint8_t Bluetooth_data;
+uint8_t Fore,Back,Left,Right;
+uint16_t data1;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -222,9 +226,16 @@ void USART3_IRQHandler(void)
   /* USER CODE END USART3_IRQn 0 */
   HAL_UART_IRQHandler(&huart3);
   /* USER CODE BEGIN USART3_IRQn 1 */
-  HAL_UART_Transmit(&huart3, (uint8_t *)"Hello world\r\n", 13, 1000);
-	Bluetoot_Control();
-  HAL_UART_Receive_IT(&huart3, Rx_Buffer, 1);
+//  HAL_UART_Transmit(&huart3, (uint8_t *)"Hello world\r\n", 13, 1000);
+//	Bluetoot_Control();
+	Bluetooth_data=rx_buffer[0]; 
+	if(Bluetooth_data==0x00)		 Fore=0,Back=0,Left=0,Right=0;//ɲ
+	else if(Bluetooth_data==0x01)Fore=1,Back=0,Left=0,Right=0;//ǰ
+	else if(Bluetooth_data==0x05)Fore=0,Back=1,Left=0,Right=0;//º󍊉else if(Bluetooth_data==0x03)Fore=0,Back=0,Left=0,Right=1;//Ӓ
+	else if(Bluetooth_data==0x07)Fore=0,Back=0,Left=1,Right=0;//׳
+	else												 Fore=0,Back=0,Left=0,Right=0;//ɲ
+	HAL_UART_Receive_IT(&huart3,rx_buffer,1);
+  //HAL_UART_Receive_IT(&huart3, Rx_Buffer, 1);
   /* USER CODE END USART3_IRQn 1 */
 }
 
