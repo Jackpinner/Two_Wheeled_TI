@@ -1,8 +1,10 @@
 #include "header.h"
+
 #define PWM_MAX 7200
 #define PWM_MIN -7200
 extern TIM_HandleTypeDef htim1;
 
+//Motor_t M520;
 int abs(int p) // 绝对值计算
 {
     if (p > 0)

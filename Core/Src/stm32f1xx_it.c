@@ -1,20 +1,20 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file    stm32f1xx_it.c
-  * @brief   Interrupt Service Routines.
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2025 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file    stm32f1xx_it.c
+ * @brief   Interrupt Service Routines.
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2025 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
@@ -41,10 +41,13 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-//uint8_t Rx_Buffer[2];
+// uint8_t Rx_Buffer[2];
+#define USART_RX_LEN 11
+uint8_t USART_RX_BUF[USART_RX_LEN];
 extern uint8_t rx_buffer[2];
-uint8_t Bluetooth_data;
-uint8_t Fore,Back,Left,Right;
+uint8_t Bluetooth_data[20];
+float Fore, Back, Left, Right;
+float FB,LR;
 uint16_t data1;
 /* USER CODE END PV */
 
@@ -68,23 +71,23 @@ extern UART_HandleTypeDef huart3;
 /*           Cortex-M3 Processor Interruption and Exception Handlers          */
 /******************************************************************************/
 /**
-  * @brief This function handles Non maskable interrupt.
-  */
+ * @brief This function handles Non maskable interrupt.
+ */
 void NMI_Handler(void)
 {
   /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
 
   /* USER CODE END NonMaskableInt_IRQn 0 */
   /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
-   while (1)
+  while (1)
   {
   }
   /* USER CODE END NonMaskableInt_IRQn 1 */
 }
 
 /**
-  * @brief This function handles Hard fault interrupt.
-  */
+ * @brief This function handles Hard fault interrupt.
+ */
 void HardFault_Handler(void)
 {
   /* USER CODE BEGIN HardFault_IRQn 0 */
@@ -98,8 +101,8 @@ void HardFault_Handler(void)
 }
 
 /**
-  * @brief This function handles Memory management fault.
-  */
+ * @brief This function handles Memory management fault.
+ */
 void MemManage_Handler(void)
 {
   /* USER CODE BEGIN MemoryManagement_IRQn 0 */
@@ -113,8 +116,8 @@ void MemManage_Handler(void)
 }
 
 /**
-  * @brief This function handles Prefetch fault, memory access fault.
-  */
+ * @brief This function handles Prefetch fault, memory access fault.
+ */
 void BusFault_Handler(void)
 {
   /* USER CODE BEGIN BusFault_IRQn 0 */
@@ -128,8 +131,8 @@ void BusFault_Handler(void)
 }
 
 /**
-  * @brief This function handles Undefined instruction or illegal state.
-  */
+ * @brief This function handles Undefined instruction or illegal state.
+ */
 void UsageFault_Handler(void)
 {
   /* USER CODE BEGIN UsageFault_IRQn 0 */
@@ -143,8 +146,8 @@ void UsageFault_Handler(void)
 }
 
 /**
-  * @brief This function handles System service call via SWI instruction.
-  */
+ * @brief This function handles System service call via SWI instruction.
+ */
 void SVC_Handler(void)
 {
   /* USER CODE BEGIN SVCall_IRQn 0 */
@@ -156,8 +159,8 @@ void SVC_Handler(void)
 }
 
 /**
-  * @brief This function handles Debug monitor.
-  */
+ * @brief This function handles Debug monitor.
+ */
 void DebugMon_Handler(void)
 {
   /* USER CODE BEGIN DebugMonitor_IRQn 0 */
@@ -169,8 +172,8 @@ void DebugMon_Handler(void)
 }
 
 /**
-  * @brief This function handles Pendable request for system service.
-  */
+ * @brief This function handles Pendable request for system service.
+ */
 void PendSV_Handler(void)
 {
   /* USER CODE BEGIN PendSV_IRQn 0 */
@@ -182,8 +185,8 @@ void PendSV_Handler(void)
 }
 
 /**
-  * @brief This function handles System tick timer.
-  */
+ * @brief This function handles System tick timer.
+ */
 void SysTick_Handler(void)
 {
   /* USER CODE BEGIN SysTick_IRQn 0 */
@@ -203,8 +206,8 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-  * @brief This function handles EXTI line[9:5] interrupts.
-  */
+ * @brief This function handles EXTI line[9:5] interrupts.
+ */
 void EXTI9_5_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI9_5_IRQn 0 */
@@ -217,8 +220,8 @@ void EXTI9_5_IRQHandler(void)
 }
 
 /**
-  * @brief This function handles USART3 global interrupt.
-  */
+ * @brief This function handles USART3 global interrupt.
+ */
 void USART3_IRQHandler(void)
 {
   /* USER CODE BEGIN USART3_IRQn 0 */
@@ -226,16 +229,21 @@ void USART3_IRQHandler(void)
   /* USER CODE END USART3_IRQn 0 */
   HAL_UART_IRQHandler(&huart3);
   /* USER CODE BEGIN USART3_IRQn 1 */
-//  HAL_UART_Transmit(&huart3, (uint8_t *)"Hello world\r\n", 13, 1000);
-//	Bluetoot_Control();
-	Bluetooth_data=rx_buffer[0]; 
-	if(Bluetooth_data==0x00)		 Fore=0,Back=0,Left=0,Right=0;//ɲ
-	else if(Bluetooth_data==0x01)Fore=1,Back=0,Left=0,Right=0;//ǰ
-	else if(Bluetooth_data==0x05)Fore=0,Back=1,Left=0,Right=0;//º󍊉else if(Bluetooth_data==0x03)Fore=0,Back=0,Left=0,Right=1;//Ӓ
-	else if(Bluetooth_data==0x07)Fore=0,Back=0,Left=1,Right=0;//׳
-	else												 Fore=0,Back=0,Left=0,Right=0;//ɲ
-	HAL_UART_Receive_IT(&huart3,rx_buffer,1);
-  //HAL_UART_Receive_IT(&huart3, Rx_Buffer, 1);
+//  if((__HAL_UART_GET_FLAG(&huart3,UART_FLAG_RXNE)!=RESET))  //接收中断(接收到的数据必须是0x5a结尾0xa5开头)
+//	{
+//    
+//	}
+  //HAL_UART_Receive(&huart3,USART_RX_BUF,USART_RX_LEN,100); //读取串口接收的一字节数据到Res
+		
+		//检查包头，包尾
+		if(USART_RX_BUF[0]==0xA5) 
+		{		
+			//将buff中的字节数据转换成指定类型
+      memcpy(&LR, &USART_RX_BUF[1], 4);
+      memcpy(&FB, &USART_RX_BUF[5], 4);     
+		} 		 
+		HAL_UART_Receive_IT(&huart3, USART_RX_BUF, USART_RX_LEN);
+  // HAL_UART_Receive_IT(&huart3, Rx_Buffer, 1);
   /* USER CODE END USART3_IRQn 1 */
 }
 

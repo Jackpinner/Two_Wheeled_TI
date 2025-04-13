@@ -1,0 +1,8 @@
+{
+    "C_Cpp.dimInactiveRegions": false,
+    "files.associations": {
+        "header.h": "c",
+        "inv_mpu_dmp_motion_driver.h": "c",
+        "mpu6050.h": "c"
+    }
+}

@@ -149,7 +149,7 @@ int main(void)
     // OLED_ShowString(0, 6, Display_Buffer, 16);
     // sprintf((char *)Display_Buffer, "roll:%.2f", roll);
    // OLED_ShowString(0, 2, Display_Buffer, 16);
-    // HAL_UART_Transmit(&huart3, Display_Buffer, sizeof(Display_Buffer), 1000);
+    HAL_UART_Transmit(&huart3, Display_Buffer, sizeof(Display_Buffer), 1000);
     sprintf((char *)Display_Buffer,"Encoder_L:%d   ",Encoder_Left);
 		OLED_ShowString(0,0,Display_Buffer,16);
 		sprintf((char *)Display_Buffer,"Encoder_R:%d   ",Encoder_Right);

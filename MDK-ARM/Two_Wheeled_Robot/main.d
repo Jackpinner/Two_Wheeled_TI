@@ -34,6 +34,8 @@ two_wheeled_robot\main.o: ../Core/Inc/tim.h
 two_wheeled_robot\main.o: ../Core/Inc/usart.h
 two_wheeled_robot\main.o: ../Core/Inc/gpio.h
 two_wheeled_robot\main.o: ../Core/Inc/header.h
+two_wheeled_robot\main.o: ./Middlewares/PID.h
+two_wheeled_robot\main.o: ./ExHardware/Motor/Motor.h
 two_wheeled_robot\main.o: ./ExHardware/OLED/oled.h
 two_wheeled_robot\main.o: ./ExHardware/MPU6050/mpu6050.h
 two_wheeled_robot\main.o: ./ExHardware/MPU6050/IIC.h
@@ -41,6 +43,4 @@ two_wheeled_robot\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\inttypes.h
 two_wheeled_robot\main.o: ./ExHardware/MPU6050/inv_mpu.h
 two_wheeled_robot\main.o: ./ExHardware/MPU6050/inv_mpu_dmp_motion_driver.h
 two_wheeled_robot\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-two_wheeled_robot\main.o: ./ExHardware/Motor/Motor.h
 two_wheeled_robot\main.o: ./ExHardware/Motor/Encoder.h
-two_wheeled_robot\main.o: ./Middlewares/PID.h

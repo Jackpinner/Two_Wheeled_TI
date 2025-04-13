@@ -190,6 +190,21 @@
           <WinNumber>1</WinNumber>
           <ItemText>Robot_enabel</ItemText>
         </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>FB</ItemText>
+        </Ww>
+        <Ww>
+          <count>8</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>LR</ItemText>
+        </Ww>
+        <Ww>
+          <count>9</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>USART_RX_BUF</ItemText>
+        </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>

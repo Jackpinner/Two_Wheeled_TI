@@ -1,6 +1,5 @@
 two_wheeled_robot\pid.o: Middlewares\PID.c
 two_wheeled_robot\pid.o: ../Core/Inc/header.h
-two_wheeled_robot\pid.o: ./ExHardware/OLED/oled.h
 two_wheeled_robot\pid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
 two_wheeled_robot\pid.o: ../Core/Inc/stm32f1xx_hal_conf.h
 two_wheeled_robot\pid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h
@@ -30,12 +29,13 @@ two_wheeled_robot\pid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 two_wheeled_robot\pid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 two_wheeled_robot\pid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 two_wheeled_robot\pid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
+two_wheeled_robot\pid.o: ./Middlewares/PID.h
+two_wheeled_robot\pid.o: ./ExHardware/Motor/Motor.h
+two_wheeled_robot\pid.o: ./ExHardware/OLED/oled.h
 two_wheeled_robot\pid.o: ./ExHardware/MPU6050/mpu6050.h
 two_wheeled_robot\pid.o: ./ExHardware/MPU6050/IIC.h
 two_wheeled_robot\pid.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\inttypes.h
 two_wheeled_robot\pid.o: ./ExHardware/MPU6050/inv_mpu.h
 two_wheeled_robot\pid.o: ./ExHardware/MPU6050/inv_mpu_dmp_motion_driver.h
 two_wheeled_robot\pid.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-two_wheeled_robot\pid.o: ./ExHardware/Motor/Motor.h
 two_wheeled_robot\pid.o: ./ExHardware/Motor/Encoder.h
-two_wheeled_robot\pid.o: ./Middlewares/PID.h
