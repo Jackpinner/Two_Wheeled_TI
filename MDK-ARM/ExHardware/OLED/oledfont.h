@@ -2,6 +2,7 @@
 #define __OLEDFONT_H__
  
 #include "stm32f1xx_hal.h"
+#include "stdint.h"
 
 //8*6 ASCII×Ö·û¼¯µãÕó
 const unsigned char F6x8[][6] =		

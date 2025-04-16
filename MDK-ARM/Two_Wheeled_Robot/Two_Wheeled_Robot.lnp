@@ -28,6 +28,7 @@
 "two_wheeled_robot\inv_mpu.o"
 "two_wheeled_robot\inv_mpu_dmp_motion_driver.o"
 "two_wheeled_robot\mpu6050.o"
+"two_wheeled_robot\inertial.o"
 "two_wheeled_robot\motor.o"
 "two_wheeled_robot\encoder.o"
 "two_wheeled_robot\pid.o"

@@ -39,3 +39,4 @@ two_wheeled_robot\pid.o: ./ExHardware/MPU6050/inv_mpu.h
 two_wheeled_robot\pid.o: ./ExHardware/MPU6050/inv_mpu_dmp_motion_driver.h
 two_wheeled_robot\pid.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 two_wheeled_robot\pid.o: ./ExHardware/Motor/Encoder.h
+two_wheeled_robot\pid.o: ./ExHardware/MPU6050/Inertial.h

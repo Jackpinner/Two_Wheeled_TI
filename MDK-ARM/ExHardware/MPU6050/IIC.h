@@ -3,6 +3,7 @@
 
 #include <inttypes.h>
 
+
 #define IIC_WR	0		/* 写控制bit */
 #define IIC_RD	1		/* 读控制bit */
 
